@@ -47,6 +47,7 @@ class nrpe (
   require stdlib
   require epel
   require augeasproviders
+  include nrpe::params
 
   validate_hash($checks)
   validate_hash($properties)
@@ -55,7 +56,7 @@ class nrpe (
   $changes = build_change_array($properties)
   $check_commands = build_command_hash($checks)
 
-  package {'nrpe' :
+  package {$nrpe::params::package :
     ensure => installed,
   }
   
@@ -69,7 +70,7 @@ class nrpe (
   }
 
   if (!empty($checks)) {
-    create_resources('nrpe_command', $check_commands, {'ensure' => present, 'require' => Package['nrpe'], 'before' => Augeas['nrpe']})
+    create_resources('nrpe_command', $check_commands, {'ensure' => present, 'require' => Package[$nrpe::params::package], 'before' => Augeas['nrpe']})
   }
 
   if (!empty($changes)) {
