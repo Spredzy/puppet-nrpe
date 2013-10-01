@@ -2,7 +2,6 @@
 #
 #   Construct the apprioriate hast for use in create_resources
 #   from the hash passed from checks
-#
 module Puppet::Parser::Functions
   newfunction(:build_command_hash, :type => :rvalue) do |args|
 

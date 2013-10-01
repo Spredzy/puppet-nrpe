@@ -1,0 +1,5 @@
+2013-09-30  Yanis Guenane  <yguenane@gmail.com>  0.1.0
+
+  * Initial Commit
+  * Install nrpe package on Debian and RedHat
+  * Configure /etc/nagios/nrpe.cfg via augeas

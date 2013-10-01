@@ -1,16 +1,47 @@
-nrpe
+nrpe [![Build Status](https://travis-ci.org/Spredzy/puppet-nrpe.png)](https://travis-ci.org/Spredzy/puppet-nrpe)
 
-This is the nrpe module.
+This module allows one to install and configure NRPE using [augeas](http://augeas.net) and [augeas providers](http://augeasproviders.com).
+
+# Usage
+
+The following code will :
+
+* Install the NRPE package
+* Install the nagios-plugins-ssh and nagios-plugins-http packages
+* Configure /etc/nagios/nrpe.cfg and set dont_blame_nrpe to 1 and allowed_host to the below mentioned values
+
+    class {'nrpe' :
+      properties      => {'dont_blame_nrpe' => '1',}
+      checks          => {'check_http' => '/usr/lib64/nagios/check_http -I 127.0.0.1',
+                          'check_ssh'  => '/usr/lib64/nagios/check_ssh -I 192.168.21.12'},
+      nagios_plugins  => ['nagios-plugins-ssh', 'nagios-plugins-http'],
+    }
+        
+
+## Properties
+
+A hash of configuration changes one would like to apply to /etc/nagios/nrpe.cfg
+
+## Checks
+
+A hash of checks that one would like to apply on its server
+
+## Plugins
+
+A list of packages (nagios-plugins) to install
 
 License
 -------
 
+Apache License v2
 
 Contact
 -------
+
+Yanis Guenane  <yguenane@gmail.com>
 
 
 Support
 -------
 
-Please log tickets and issues at our [Projects site](http://projects.example.com)
+Please log tickets and issues at our [Projects site](http://github.com/Spredzy/puppet-nrpe)

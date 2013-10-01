@@ -17,17 +17,20 @@
 #
 # [*checks*]
 #   List if checks one wants its system to realized
-#   ex. checks => {'check_http' => '/usr/lib64/nagios/check_http -I 192.168.100.122',
-#                  'check_ping' => '/usr/lib64/nagios/check_ping -H 127.0.0.1 -w 100.0,20% -c 200.0,80%'}
+#   ex. checks => {'check_http' =>
+#                   '/usr/lib64/nagios/check_http -I 192.168.100.122'}
 #
-# === Examples
+# === Example
 #
 #  class { nrpe:
 #    properties => {'server_port'     => '3667',
 #                   'dont_blame_nrpe' => '1'},
 #    nagios_plugins => ['nagios-plugins-ping', 'nagios-plugins-http'],
-#    checks => {'check_http' => '/usr/lib64/nagios/check_http -I 192.168.100.122',
-#               'check_ping' => '/usr/lib64/nagios/check_ping -H 127.0.0.1 -w 100.0,20% -c 200.0,80%'},
+#    checks =>
+#      {'check_http' =>
+#        '/usr/lib64/nagios/check_http -I 192.168.100.122',
+#       'check_ping' =>
+#        '/usr/lib64/nagios/check_ping -H 127.0.0.1 -w 100.0,20% -c 200.0,80%'}
 #  }
 #
 # === Authors
@@ -44,50 +47,24 @@ class nrpe (
   $checks = {},
   ) {
 
-  require stdlib
-  require epel
   require augeasproviders
-  include nrpe::params
+  require stdlib
+  if $::osfamily == 'RedHat' {
+    require epel
+  }
 
   validate_hash($checks)
   validate_hash($properties)
   validate_array($nagios_plugins)
 
-  $changes = build_change_array($properties)
-  $check_commands = build_command_hash($checks)
-
-  package {$nrpe::params::package :
-    ensure => installed,
-  }
-  
-  if(!empty($nagios_plugins)) {
-
-    package {$nagios_plugins :
-      ensure => installed,
-      require => Package['nrpe'],
-    }
-
-  }
-
-  if (!empty($checks)) {
-    create_resources('nrpe_command', $check_commands, {'ensure' => present, 'require' => Package[$nrpe::params::package], 'before' => Augeas['nrpe']})
-  }
-
-  if (!empty($changes)) {
-
-    augeas {'nrpe' :
-      context => '/files/etc/nagios/nrpe.cfg',
-      changes => $changes,
-      notify  => Service['nrpe'],
-    }
-
-  }
-
-  service {'nrpe' :
-    ensure      => running,
-    enable      => true,
-    hasrestart  => true,
-    hasstatus   => true,
-  }
+  class{'nrpe::install' :
+    nagios_plugins  =>  $nagios_plugins,
+  } ->
+  class{'nrpe::config' :
+    properties => $properties,
+    checks     => $checks,
+  } ~>
+  class{'nrpe::service' : } ->
+  Class['nrpe']
 
 }

@@ -1,7 +1,6 @@
 # Function: build_change_array
 #
 #   Construct an array from the $porperties hash and add the set keyword
-#
 module Puppet::Parser::Functions
   newfunction(:build_change_array, :type => :rvalue) do |args|
 
