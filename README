@@ -1,4 +1,4 @@
-nrpe [![Build Status](https://travis-ci.org/Spredzy/puppet-nrpe.png)](https://travis-ci.org/Spredzy/puppet-nrpe)
+# nrpe [![Build Status](https://travis-ci.org/Spredzy/puppet-nrpe.png)](https://travis-ci.org/Spredzy/puppet-nrpe)
 
 This module allows one to install and configure NRPE using [augeas](http://augeas.net) and [augeas providers](http://augeasproviders.com).
 
@@ -29,6 +29,12 @@ A hash of checks that one would like to apply on its server
 ## Plugins
 
 A list of packages (nagios-plugins) to install
+
+# Compatibility
+
+Due to its dependency to yguenane/puppet-augeas this module works only for el6.x86_64 systems.
+
+An update will come to handle more systems.
 
 License
 -------

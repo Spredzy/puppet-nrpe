@@ -3,5 +3,6 @@ fixtures:
     stdlib: "git://github.com/puppetlabs/puppetlabs-stdlib"
     augeasproviders: "git://github.com/hercules-team/augeasproviders.git"
     epel: "git://github.com/stahnma/puppet-module-epel.git"
+    augeas: "git://github.com/Spredzy/puppet-augeas.git"
   symlinks:
     nrpe: "#{source_dir}"

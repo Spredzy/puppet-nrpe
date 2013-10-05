@@ -11,6 +11,11 @@ describe 'nrpe' do
     it 'includes class epel' do
       should include_class('epel')
     end
+
+    it 'includes class augeas' do
+      should include_class('augeas')
+    end
+
   end
 
   context 'Debian Based Distros' do
@@ -19,14 +24,20 @@ describe 'nrpe' do
       {:osfamily => 'Debian',}
     end
 
-    it 'does not include class epel' do
+    it 'DOES NOT include class epel' do
       should_not include_class('epel')
     end
+
+    it 'DOES NOT includes class augeas' do
+      should_not include_class('augeas')
+    end
+
   end
 
   it 'includes class stdlib' do
     should include_class('stdlib')
   end
+
 
   it 'includes class augeasproviders' do
     should include_class('augeasproviders')

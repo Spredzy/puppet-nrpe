@@ -8,6 +8,7 @@ description 'An NRPE puppet module that relies on Augeas/AugeasProviders for con
 project_page 'https://github.com/Spredzy/puppet-nrpe'
 
 ## Add dependencies, if any:
+dependency 'yguenane/augeas', '>= 0.1.0'
 dependency 'puppetlabs/stdlib', '>= 4.1.0'
 dependency 'domcleal/augeasproviders', '>= 1.0.0'
 dependency 'stahnma/epel', '>= 0.0.5'

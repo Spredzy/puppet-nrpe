@@ -51,6 +51,7 @@ class nrpe (
   require stdlib
   if $::osfamily == 'RedHat' {
     require epel
+    require augeas
   }
 
   validate_hash($checks)
@@ -59,6 +60,8 @@ class nrpe (
 
   class{'nrpe::install' :
     nagios_plugins  =>  $nagios_plugins,
+    require         =>  [Class['epel'], Class['augeas'],
+                          Class['augeasproviders'], Class['stdlib']],
   } ->
   class{'nrpe::config' :
     properties => $properties,
