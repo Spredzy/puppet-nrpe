@@ -31,7 +31,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{_sysconfdir}/puppet/modules/*
-%doc CHANGELOG README.md LICENSE
+%doc CHANGELOG README LICENSE
 
 %changelog
 * Fri Oct 5 2013  Yanis Guenane  <yguenane@gmail.com>  0.1.0
