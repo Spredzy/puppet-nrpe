@@ -9,7 +9,7 @@ URL:            http://forge.puppetlabs.com/yguenane/nrpe
 Source0:        http://forge.puppetlabs.com/yguenane/nrpe/%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Requires:       puppet
+Requires:       puppet puppet-epel puppet-augeas puppet-augeasproviders puppet-stdlib
 
 %description
 A puppet module that installs and configure NRPE service. It uses augeas
